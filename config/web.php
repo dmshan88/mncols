@@ -8,10 +8,7 @@ $db = array_merge(
     require __DIR__ . '/db.php',
     require __DIR__ . '/db-local.php'
 );
-$tranport = array_merge(
-    require __DIR__ . '/transport.php',
-    require __DIR__ . '/transport-local.php'
-);
+
 $config = [
     'id' => 'yiimncols',
     'basePath' => dirname(__DIR__),
@@ -52,11 +49,7 @@ $config = [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' =>false,
-            'transport' => $tranport,  
-            'messageConfig'=>[  
-                'charset'=>'UTF-8',  
-                'from'=>['shanjinlong@mnchip.com'=>'shanjinlong']  
-            ],  
+            'transport' => $params['transport'],  
         ],
      ], 
     // 'defaultRoute' => 'fapan', 

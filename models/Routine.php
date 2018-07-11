@@ -114,9 +114,10 @@ class Routine
 }
 function sendmail($subject = '', $content = '')
 {
+    $user = \Yii::$app->params['transport']['username'];
     \Yii::$app->mailer->compose()
-    ->setFrom('shanjinlong@mnchip.com')
-    ->setTo('shanjinlong@mnchip.com')
+    ->setFrom($user)
+    ->setTo($user)
     ->setSubject($subject)
     ->setTextBody($content)
     // ->setHtmlBody('<b>HTML content</b>')
