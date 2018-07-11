@@ -8,6 +8,7 @@ use yii\web\ServerErrorHttpException;
 use yii\helpers\Url;
 use app\models\Routine;
 use app\models\Report;
+use Qcloud\Sms\SmsMultiSender;
 // use yii\db\Query;
 class SiteController extends \yii\web\Controller
 {

@@ -105,6 +105,7 @@ class Routine
                 $model->stat = Report::STAT_EXIST;
                 if ($model->save()) {
                     sendmail('new report '.$model->mid, $model->hospital);
+                    sendsms($model->mid,$model->phone,$model->hospital);
                     return true;
                 }
             }
@@ -122,4 +123,18 @@ function sendmail($subject = '', $content = '')
     ->setTextBody($content)
     // ->setHtmlBody('<b>HTML content</b>')
     ->send();
+}
+
+function sendsms($machine='',$phone = '',$hospital = '')
+{
+    $on = \Yii::$app->params['MESSAGE_CONFIG']['ON'];
+    if ($on) {
+        $templId = \Yii::$app->params['MESSAGE_CONFIG']['FORM2'];
+        $appid = \Yii::$app->params['MESSAGE_CONFIG']['APPID'];
+        $appkey = \Yii::$app->params['MESSAGE_CONFIG']['APPKEY'];
+        $phoneNumbers = \Yii::$app->params['PHONE_NUMBER'];
+        $params = [$phone,$machine,$hospital."扫码"];
+        $multiSender = new \Qcloud\Sms\SmsMultiSender($appid, $appkey);
+        $result = $multiSender->sendWithParam("86", $phoneNumbers, $templId, $params, "", "", "");
+    }
 }
